@@ -1,0 +1,6 @@
+# Generated files: rewritten by their tools, not by hand
+public/mockServiceWorker.js
+src/styles/tokens.css
+src/styles/theme.css
+tokens/figma-variables.json
+package-lock.json

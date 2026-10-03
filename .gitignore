@@ -1,0 +1,13 @@
+node_modules
+dist
+storybook-static
+*.log
+*.tsbuildinfo
+.DS_Store
+.env*
+!.env.example
+coverage
+.vite
+# Figma reference screenshots used while building (local only)
+/captures
+.playwright-mcp

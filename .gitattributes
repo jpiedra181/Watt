@@ -1,0 +1,4 @@
+# LF everywhere, so Prettier (endOfLine: lf) passes on any OS
+* text=auto eol=lf
+*.png binary
+*.woff2 binary

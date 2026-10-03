@@ -1,0 +1,31 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# Watt design system
+
+Watt is an energy-consumption dashboard for small hotels and rural houses. This Storybook is the
+component library behind it, built from the Figma file
+[Dashboard – Watt](https://www.figma.com/design/xRB9FSPYbdup5v6rJz4R9F/Dashboard---Watt).
+
+## How it is organised
+
+- **Foundations** — colour, type, spacing, radius, elevation and icons, rendered from the same token
+  export that generates the CSS variables (`npm run tokens`).
+- **Components** — every component set on the Figma _Components_ page. Each one has an **All states**
+  story that mirrors the Figma grid (Hover, Focus and Pressed are forced with the pseudo-states addon),
+  plus stories for Loading, Empty and Error where the component has them. The **Design** tab opens
+  the matching Figma node.
+- **Screens** — the five Figma screens running against the mock API, with stories for the loading,
+  error and empty states of each page.
+
+## Conventions
+
+- Components only use **semantic tokens** (`bg-surface`, `text-secondary`, `border-subtle`…). The
+  Tailwind palette is switched off, so a primitive or a hex value cannot sneak in.
+- Hover, focus and pressed are CSS states; disabled, loading, error and empty are props or data.
+- Every interactive element is reachable and operable with the keyboard; overlays (dialog, menu,
+  select, tooltip, tabs) are built on Radix.
+- Charts are one accessible image with a written summary, plus a data table that appears on keyboard
+  focus. Colour is never the only cue.
+- Use the toolbar to switch **Light / Dark**, the viewport and to run the **Accessibility** checks.

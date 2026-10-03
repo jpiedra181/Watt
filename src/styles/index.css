@@ -1,0 +1,97 @@
+@import 'tailwindcss';
+@import './tokens.css';
+@import './theme.css';
+
+/* Text-style utilities are also referenced dynamically (Foundations docs). */
+@source inline('type-{heading-page,heading-section,heading-subsection,data-kpi,data-large,body,body-strong,body-small,body-small-strong,caption,caption-strong,label-overline,data-mono,data-mono-strong,data-axis,doc-title,doc-body}');
+
+/* Motion — spinner speed comes from the Figma Spinner description (360° / 800ms linear). */
+@theme {
+  --animate-spinner: spin 800ms linear infinite;
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+
+  @keyframes shimmer {
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: -100% 0;
+    }
+  }
+}
+
+/* Light/dark is driven by tokens; `dark:` is only needed for the rare non-token tweak. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@layer base {
+  html {
+    background-color: var(--color-bg-canvas);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-height: 100dvh;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  ::selection {
+    background-color: var(--color-bg-selected-hover);
+  }
+
+  /* Numbers line up in tables, KPIs and axes. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* History chart area wash — chart/area is 10% in light and 24% in dark (Figma Theme collection);
+ * the same alpha is applied to every zone series colour. */
+:root {
+  --chart-area-alpha: 0.1;
+}
+[data-theme='dark'] {
+  --chart-area-alpha: 0.24;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --chart-area-alpha: 0.24;
+  }
+}
+.chart-area-wash .recharts-area-area {
+  fill-opacity: var(--chart-area-alpha);
+}
+.recharts-wrapper,
+.recharts-surface {
+  outline: none;
+}
+/* Labels such as "Now" and the peak tag may sit on the plot edge. */
+.recharts-surface {
+  overflow: visible;
+}
+
+@utility skeleton {
+  background-color: var(--color-bg-skeleton);
+  background-image: linear-gradient(
+    90deg,
+    var(--color-bg-skeleton) 0%,
+    var(--color-bg-skeleton-highlight) 50%,
+    var(--color-bg-skeleton) 100%
+  );
+  background-size: 200% 100%;
+}

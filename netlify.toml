@@ -1,0 +1,28 @@
+# App at /, Storybook at /storybook — one Netlify site.
+[build]
+  command = "npm run build:all"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Storybook needs no rule: /storybook/ is a real folder, and static files always win over the
+# non-forced SPA fallback below. (A rewrite to /storybook/index.html without the trailing slash
+# would break its relative asset paths.)
+
+# SPA fallback for the app routes (existing files such as /mockServiceWorker.js win).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/mockServiceWorker.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+    Service-Worker-Allowed = "/"
+
+[[headers]]
+  for = "/storybook/mockServiceWorker.js"
+  [headers.values]
+    Cache-Control = "no-cache"
